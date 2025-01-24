@@ -1,37 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Card from './components/Card'
 import { AppOuter, CardContainer } from './styled'
 import { PlayingCard } from './components/Card/types'
-import { shuffle } from './utils/shuffle'
-
-const getRandomCharacter = () => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  const randomIndex = Math.floor(Math.random() * characters.length)
-  return characters.charAt(randomIndex)
-}
-
-const generateValues = (pairs: number): string[] => {
-  let values: string[] = []
-  for (let i = 0; i < pairs; i++) {
-    values.push(getRandomCharacter())
-  }
-  return values
-}
-
-const generateCards = (pairs: number): PlayingCard[] => {
-  let cards: PlayingCard[] = []
-  const values = generateValues(pairs)
-  const shuffledCards = shuffle([...values, ...values])
-
-  for (let i = 0; i < shuffledCards.length; i++) {
-    cards.push({
-      id: i.toString(),
-      value: shuffledCards[i],
-    })
-  }
-
-  return cards
-}
+import { generateCards } from './utils/generate'
 
 const App = () => {
   const pairs = 6
