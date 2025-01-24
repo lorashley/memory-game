@@ -32,7 +32,7 @@ const App = () => {
     (card: PlayingCard) => {
       if (matchA && matchB) return // do nothing
       if (!matchA) return setMatchA(card)
-      if (!matchB) return setMatchB(card)
+      if (!matchB && matchA.id !== card.id) return setMatchB(card)
     },
     [matchA, matchB, setMatchA, setMatchB],
   )
