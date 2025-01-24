@@ -1,14 +1,12 @@
-import { useCallback } from 'react';
-import useSwitch from '../../hooks/useSwitch';
-import { Outer } from './styled';
-import { PlayingCard } from './types';
+import { Outer } from './styled'
+import { PlayingCard } from './types'
 
 type Props = {
-  card: PlayingCard;
-  onClick: (card: PlayingCard) => void;
-  isFlipped?: boolean;
-  isMatched?: boolean;
-};
+  card: PlayingCard
+  onClick: (card: PlayingCard) => void
+  isFlipped?: boolean
+  isMatched?: boolean
+}
 const Card = ({
   card,
   onClick,
@@ -23,7 +21,7 @@ const Card = ({
     >
       {isFlipped && card.value}
     </Outer>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

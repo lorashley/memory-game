@@ -1,4 +1,4 @@
 export type PlayingCard = {
-  id: string;
-  value: string;
-};
+  id: string
+  value: string
+}

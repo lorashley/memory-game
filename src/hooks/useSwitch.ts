@@ -1,26 +1,26 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react'
 
-type value = boolean;
-type turnOn = () => void;
-type turnOff = () => void;
-type toggle = () => void;
+type value = boolean
+type turnOn = () => void
+type turnOff = () => void
+type toggle = () => void
 
 const useSwitch = (initialValue = false): [value, turnOn, turnOff, toggle] => {
-  const [state, setState] = useState(initialValue);
+  const [state, setState] = useState(initialValue)
 
   const turnOn = useCallback(() => {
-    setState(true);
-  }, [setState]);
+    setState(true)
+  }, [setState])
 
   const turnOff = useCallback(() => {
-    setState(false);
-  }, [setState]);
+    setState(false)
+  }, [setState])
 
   const toggle = useCallback(() => {
-    setState((prevState) => !prevState);
-  }, [setState]);
+    setState((prevState) => !prevState)
+  }, [setState])
 
-  return [state, turnOn, turnOff, toggle];
-};
+  return [state, turnOn, turnOff, toggle]
+}
 
-export default useSwitch;
+export default useSwitch

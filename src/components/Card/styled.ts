@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Outer = styled.div<{ $isFlipped?: boolean }>`
   width: 90px;
@@ -7,4 +7,4 @@ export const Outer = styled.div<{ $isFlipped?: boolean }>`
   border: 1px solid black;
 
   background: ${({ $isFlipped }) => ($isFlipped ? `white` : `blue`)};
-`;
+`
