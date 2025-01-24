@@ -51,13 +51,12 @@ const App = () => {
   return (
     <AppOuter>
       <h1>Memory</h1>
-      {hasWon && (
-        <>
-          <h1>You won!</h1>
-          <button onClick={resetGame}>Reset Game</button>
-        </>
+
+      {!foundIndexes.length && (
+        <button onClick={resetGame}>
+          {hasWon ? 'Play Again' : 'Start Game'}
+        </button>
       )}
-      {!cards && <button onClick={resetGame}>Start Game</button>}
       <CardContainer>
         {cards?.map((card) => (
           <Card
