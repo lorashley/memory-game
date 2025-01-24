@@ -45,42 +45,23 @@ const App = () => {
   const resetMatches = useCallback(() => {
     setMatchA(undefined);
     setMatchB(undefined);
-  }, []);
+  }, [setMatchA, setMatchB]);
 
-  const onCardClicked = (card: PlayingCard) => {
-    console.log('card clicked', card.value);
+  const onCardClicked = useCallback((card: PlayingCard) => {
     if (matchA && matchB) return; // do nothing
-    if (!matchA) {
-      console.log('setting card 1');
-      console.log('match1:', matchA);
-      setMatchA(card);
-    } else if (!matchB) {
-      console.log('setting card 2');
-      console.log('match2:', matchB);
-      setMatchB(card);
-    }
-    console.log('both cards set');
-  };
-
-  // have A,B --> if a,b match leave them flipped and add a point
-  //end when points = pairs
-
-  // list for when a and b have matches, compare, take action
+    if (!matchA) return setMatchA(card);
+    if (!matchB)  return setMatchB(card);
+  
+  }, [matchA, matchB, setMatchA, setMatchB])
 
   useEffect(() => {
-    if (matchA && matchB) {
-      console.log('useEffect both cards set');
+    if(!matchA || !matchB) return
       if (matchA.value === matchB.value) {
-        console.log('found a match');
         setFoundIndexes((prev) => [...prev, matchA.id, matchB.id]);
-      } else {
-        console.log('not a match');
       }
-      console.log('resetting pairs');
       setTimeout(() => {
         resetMatches();
-      }, 2000);
-    }
+      }, 1000);
   }, [matchA, matchB]);
 
   return (
