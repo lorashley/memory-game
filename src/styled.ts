@@ -12,6 +12,7 @@ export const AppOuter = styled.div`
 export const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin: 10px;
   padding: 10px;
   gap: 4px;
