@@ -3,6 +3,7 @@ import Card from './components/Card'
 import { AppOuter, CardContainer } from './styled'
 import { PlayingCard } from './components/Card/types'
 import { generateCards } from './utils/generate'
+import ConfettiExplosion from 'react-confetti-explosion'
 
 const App = () => {
   const pairs = 6
@@ -68,6 +69,12 @@ const App = () => {
           />
         ))}
       </CardContainer>
+      {hasWon && (
+        <>
+          <ConfettiExplosion />
+          <h1>You won!</h1>
+        </>
+      )}
     </AppOuter>
   )
 }
