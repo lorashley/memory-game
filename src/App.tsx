@@ -17,16 +17,16 @@ const App = () => {
   const [foundIndexes, setFoundIndexes] = useState<string[]>([])
   const hasWon = foundIndexes.length === cards?.length
 
-  const resetGame = useCallback(() => {
-    resetMatches()
-    setFoundIndexes([])
-    generateCardPairs()
-  }, [])
-
   const resetMatches = useCallback(() => {
     setMatchA(undefined)
     setMatchB(undefined)
   }, [setMatchA, setMatchB])
+
+  const resetGame = useCallback(() => {
+    resetMatches()
+    setFoundIndexes([])
+    generateCardPairs()
+  }, [generateCardPairs, resetMatches])
 
   const onCardClicked = useCallback(
     (card: PlayingCard) => {
@@ -45,11 +45,11 @@ const App = () => {
     setTimeout(() => {
       resetMatches()
     }, 1000)
-  }, [matchA, matchB])
+  }, [matchA, matchB, resetMatches])
 
   return (
     <AppOuter>
-      <h1>memory</h1>
+      <h1>Memory</h1>
       {hasWon && (
         <>
           <h1>You won!</h1>
