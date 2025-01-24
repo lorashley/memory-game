@@ -35,12 +35,24 @@ const generateCards = (pairs: number): PlayingCard[] => {
 
 const App = () => {
   const pairs = 6;
-  const cards = useMemo(() => generateCards(pairs), [pairs]);
+  const [cards, setCards] = useState<PlayingCard[]>()
+
+  const generateCardPairs = useCallback(() => {
+    setCards(generateCards(pairs))
+  }, [setCards])
+
 
   const [matchA, setMatchA] = useState<PlayingCard>();
   const [matchB, setMatchB] = useState<PlayingCard>();
   const [foundIndexes, setFoundIndexes] = useState<string[]>([]);
-  const hasWon = foundIndexes.length === cards.length;
+  const hasWon = foundIndexes.length === cards?.length;
+
+
+  const resetGame = useCallback(() => {
+    resetMatches()
+    setFoundIndexes([])
+    generateCardPairs()
+  }, [])
 
   const resetMatches = useCallback(() => {
     setMatchA(undefined);
@@ -56,9 +68,9 @@ const App = () => {
 
   useEffect(() => {
     if(!matchA || !matchB) return
-      if (matchA.value === matchB.value) {
-        setFoundIndexes((prev) => [...prev, matchA.id, matchB.id]);
-      }
+    if (matchA.value === matchB.value) {
+      setFoundIndexes((prev) => [...prev, matchA.id, matchB.id]);
+    }
       setTimeout(() => {
         resetMatches();
       }, 1000);
@@ -67,9 +79,11 @@ const App = () => {
   return (
     <AppOuter>
       <h1>memory</h1>
-      {hasWon && <h1>You won!</h1>}
+      {hasWon && <><h1>You won!</h1>
+      <button onClick={resetGame}>Reset Game</button></>}
+      {!cards &&<button onClick={resetGame}>Start Game</button> }
       <CardContainer>
-        {cards.map((card) => (
+        {cards?.map((card) => (
           <Card
             card={card}
             key={card.id}
