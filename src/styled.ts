@@ -15,7 +15,7 @@ export const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 600px;
+  max-width: 400px;
   margin: 4px;
   padding: 4px;
   gap: 4px;
