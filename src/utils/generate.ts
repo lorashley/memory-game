@@ -1,24 +1,29 @@
 import { PlayingCard } from '../components/Card/types'
 import { shuffle } from './shuffle'
 
-const getRandomCharacter = () => {
+const generateValues = (pairs: number): string[] => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  const randomIndex = Math.floor(Math.random() * characters.length)
-  return characters.charAt(randomIndex)
+  const shuffled = shuffle([...characters])
+  return shuffled.slice(0, pairs)
 }
 
-const generateValues = (pairs: number): string[] => {
-  const values: string[] = []
-  for (let i = 0; i < pairs; i++) {
-    values.push(getRandomCharacter())
+const ensureNoAdjacentMatches = (array: string[]) => {
+  for (let i = 0; i < array.length - 1; i++) {
+    if (array[i] === array[i + 1]) {
+      // Swap with a random non-adjacent element
+      const j =
+        (i + 2 + Math.floor(Math.random() * (array.length - i - 2))) %
+        array.length
+      ;[array[i + 1], array[j]] = [array[j], array[i + 1]]
+    }
   }
-  return values
+  return array
 }
 
 export const generateCards = (pairs: number): PlayingCard[] => {
   const cards: PlayingCard[] = []
   const values = generateValues(pairs)
-  const shuffledCards = shuffle([...values, ...values])
+  const shuffledCards = ensureNoAdjacentMatches(shuffle([...values, ...values]))
 
   for (let i = 0; i < shuffledCards.length; i++) {
     cards.push({
