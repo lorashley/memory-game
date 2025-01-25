@@ -1,7 +1,7 @@
 // Fisher-Yates shuffle https://bost.ocks.org/mike/shuffle/
 
 export const shuffle = (array: string[]) => {
-  var m = array.length,
+  let m = array.length,
     t,
     i
 
