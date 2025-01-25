@@ -9,6 +9,7 @@ export const AppOuter = styled.div`
   align-items: center;
 
   gap: 2px;
+  background-color: #fffff5;
 `
 
 export const CardContainer = styled.div`
@@ -24,4 +25,8 @@ export const CardContainer = styled.div`
 export const TimerContainer = styled.div`
   display: flex;
   gap: 4px;
+`
+
+export const H1 = styled.h1`
+  color: #003049;
 `

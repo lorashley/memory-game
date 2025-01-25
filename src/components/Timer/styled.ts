@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { gray1 } from '../../colors'
 
 export const Outer = styled.div<{ $isFlipped?: boolean }>`
   width: 150px;
@@ -9,5 +8,5 @@ export const Outer = styled.div<{ $isFlipped?: boolean }>`
   align-items: center;
   justify-content: center;
 
-  background: ${gray1};
+  background-color: #c5d5ea;
 `

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import Card from './components/Card'
-import { AppOuter, CardContainer, TimerContainer } from './styled'
+import { AppOuter, CardContainer, H1, TimerContainer } from './styled'
 import { PlayingCard } from './components/Card/types'
 import { generateCards } from './utils/generate'
 import ConfettiExplosion from 'react-confetti-explosion'
@@ -66,7 +66,7 @@ const App = () => {
 
   return (
     <AppOuter>
-      <h1>Memory</h1>
+      <H1>Memory</H1>
       <CardContainer>
         {cards?.map((card) => (
           <Card
@@ -81,7 +81,7 @@ const App = () => {
       {hasWon && (
         <>
           <ConfettiExplosion />
-          <h1>You won!</h1>
+          <H1>You won!</H1>
         </>
       )}
 
