@@ -1,4 +1,4 @@
-import { Outer } from './styled'
+import { CardBack, CardFront, CardInner, Outer } from './styled'
 import { PlayingCard } from './types'
 
 type Props = {
@@ -14,12 +14,11 @@ const Card = ({
   isMatched = false,
 }: Props) => {
   return (
-    <Outer
-      $isFlipped={isFlipped || isMatched}
-      onClick={() => onClick(card)}
-      id={card.id}
-    >
-      {isFlipped && card.value}
+    <Outer onClick={() => onClick(card)} id={card.id}>
+      <CardInner $isFlipping={isFlipped || isMatched}>
+        <CardFront></CardFront>
+        <CardBack>{card.value}</CardBack>
+      </CardInner>
     </Outer>
   )
 }
