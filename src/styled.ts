@@ -7,13 +7,20 @@ export const AppOuter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  gap: 2px;
 `
 
 export const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 10px;
-  padding: 10px;
+  margin: 4px;
+  padding: 4px;
+  gap: 4px;
+`
+
+export const TimerContainer = styled.div`
+  display: flex;
   gap: 4px;
 `

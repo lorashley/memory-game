@@ -1,42 +1,58 @@
 import { useCallback, useEffect, useState } from 'react'
 import Card from './components/Card'
-import { AppOuter, CardContainer } from './styled'
+import { AppOuter, CardContainer, TimerContainer } from './styled'
 import { PlayingCard } from './components/Card/types'
 import { generateCards } from './utils/generate'
 import ConfettiExplosion from 'react-confetti-explosion'
+import Timer from './components/Timer'
+import { DateTime } from 'ts-luxon'
 
 const App = () => {
   const pairs = 6
   const [cards, setCards] = useState<PlayingCard[]>()
+  const [startedAt, setStartedAt] = useState<DateTime>()
+  const [endedAt, setEndedAt] = useState<DateTime>()
+  const [matchA, setMatchA] = useState<PlayingCard>()
+  const [matchB, setMatchB] = useState<PlayingCard>()
+  const [foundIndexes, setFoundIndexes] = useState<string[]>([])
+
+  const hasWon = foundIndexes.length === cards?.length
 
   const generateCardPairs = useCallback(() => {
     setCards(generateCards(pairs))
   }, [setCards])
-
-  const [matchA, setMatchA] = useState<PlayingCard>()
-  const [matchB, setMatchB] = useState<PlayingCard>()
-  const [foundIndexes, setFoundIndexes] = useState<string[]>([])
-  const hasWon = foundIndexes.length === cards?.length
 
   const resetMatches = useCallback(() => {
     setMatchA(undefined)
     setMatchB(undefined)
   }, [setMatchA, setMatchB])
 
+  const resetTimer = useCallback(() => {
+    setStartedAt(undefined)
+    setEndedAt(undefined)
+  }, [])
+
   const resetGame = useCallback(() => {
     resetMatches()
     setFoundIndexes([])
     generateCardPairs()
-  }, [generateCardPairs, resetMatches])
+    resetTimer()
+  }, [generateCardPairs, resetMatches, resetTimer])
 
   const onCardClicked = useCallback(
     (card: PlayingCard) => {
+      if (!startedAt) setStartedAt(DateTime.now())
       if (matchA && matchB) return // do nothing
       if (!matchA) return setMatchA(card)
       if (!matchB && matchA.id !== card.id) return setMatchB(card)
     },
-    [matchA, matchB, setMatchA, setMatchB],
+    [matchA, matchB, startedAt],
   )
+
+  // Stop timer
+  useEffect(() => {
+    if (hasWon) setEndedAt(DateTime.now())
+  }, [hasWon])
 
   useEffect(() => {
     if (!matchA || !matchB) return
@@ -45,7 +61,7 @@ const App = () => {
     }
     setTimeout(() => {
       resetMatches()
-    }, 1000)
+    }, 750)
   }, [matchA, matchB, resetMatches])
 
   return (
@@ -68,11 +84,14 @@ const App = () => {
           <h1>You won!</h1>
         </>
       )}
-      {(!cards || hasWon) && (
-        <button onClick={resetGame}>
-          {hasWon ? 'Play Again' : 'Start Game'}
+
+      <TimerContainer>
+        {' '}
+        <button onClick={resetGame} disabled={cards && !startedAt}>
+          {hasWon ? 'Play Again' : !cards ? 'Start Game' : 'Reset Game'}
         </button>
-      )}
+        <Timer startedAt={startedAt} endedAt={endedAt} />
+      </TimerContainer>
     </AppOuter>
   )
 }
