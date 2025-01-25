@@ -9,4 +9,5 @@ export const Outer = styled.div<{ $isFlipped?: boolean }>`
   justify-content: center;
 
   background-color: #c5d5ea;
+  color: #fff;
 `
