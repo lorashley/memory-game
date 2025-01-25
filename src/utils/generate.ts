@@ -1,9 +1,21 @@
 import { PlayingCard } from '../components/Card/types'
 import { shuffle } from './shuffle'
 
-const generateValues = (pairs: number): string[] => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  const shuffled = shuffle([...characters])
+enum GameType {
+  LETTERS = 'LETTERS',
+  NUMBERS = 'NUMBERS',
+  IMAGES = 'IMAGES',
+}
+
+const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const NUMBERS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+const generateValues = (
+  pairs: number,
+  type: GameType = GameType.LETTERS,
+): string[] => {
+  const values = type === GameType.LETTERS ? LETTERS : NUMBERS
+  const shuffled = shuffle([...values])
   return shuffled.slice(0, pairs)
 }
 
